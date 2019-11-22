@@ -1,0 +1,53 @@
+{
+  "name": "@magic/server",
+  "version": "0.0.1",
+  "author": "Wizards & Witches",
+  "homepage": "https://magic.github.io/server",
+  "license": "AGPL-3.0",
+  "description": "@magic/server. serves directories of files.",
+  "main": "src/bin/bin.js",
+  "engines": {
+    "node": ">=12.13.0"
+  },
+  "scripts": {
+    "start": "src/bin/bin.js start .",
+    "test": "t",
+    "format": "f -w",
+    "dev": "src/bin/bin.js start --dir pkg"
+  },
+  "bin": {
+    "magic-server": "src/bin/bin.js"
+  },
+  "files": [
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/magic/server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/magic/server/issues"
+  },
+  "dependencies": {
+    "@magic/cli": "0.0.8",
+    "@magic/deep": "0.1.0",
+    "@magic/log": "0.1.1",
+    "@magic/types": "0.1.2",
+    "mime-db": "1.42.0"
+  },
+  "devDependencies": {
+    "@magic/test": "0.1.21"
+  },
+  "keywords": [
+    "magic",
+    "static",
+    "page",
+    "server"
+  ],
+  "contributors": [
+    {
+      "name": "jascha ehrenreich",
+      "github": "jaeh"
+    }
+  ]
+}
