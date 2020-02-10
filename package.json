@@ -4,11 +4,12 @@
   "author": "Wizards & Witches",
   "homepage": "https://magic.github.io/server",
   "license": "AGPL-3.0",
-  "description": "@magic/server. serves directories of files.",
+  "description": "NOT YET BENCHMARKED OR IN PRODUCTION! @magic/server. buildes @magic pages and apis, then serves them. caches what it can.",
   "main": "src/bin/bin.js",
   "engines": {
-    "node": ">=12.13.0"
+    "node": ">=13.5.0"
   },
+  "engineStrict": true,
   "scripts": {
     "start": "npm run dev",
     "test": "t",
@@ -37,6 +38,7 @@
     "@magic/types": "0.1.11"
   },
   "devDependencies": {
+    "@magic/format": "0.0.7",
     "@magic/test": "0.1.33"
   },
   "keywords": [
