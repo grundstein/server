@@ -10,10 +10,10 @@
     "node": ">=12.13.0"
   },
   "scripts": {
-    "start": "src/bin/bin.js start .",
+    "start": "npm run dev",
     "test": "t",
     "format": "f -w",
-    "dev": "src/bin/bin.js start --dir pkg"
+    "dev": "src/bin/bin.js serve --dir example"
   },
   "bin": {
     "magic-server": "src/bin/bin.js"
@@ -29,14 +29,15 @@
     "url": "https://github.com/magic/server/issues"
   },
   "dependencies": {
-    "@magic/cli": "0.0.8",
-    "@magic/deep": "0.1.0",
-    "@magic/log": "0.1.1",
-    "@magic/types": "0.1.2",
-    "mime-db": "1.42.0"
+    "@magic/cli": "0.0.23",
+    "@magic/deep": "0.1.2",
+    "@magic/fs": "0.0.4",
+    "@magic/log": "0.1.3",
+    "@magic/mime-types": "github:magic/mime-types",
+    "@magic/types": "0.1.11"
   },
   "devDependencies": {
-    "@magic/test": "0.1.21"
+    "@magic/test": "0.1.33"
   },
   "keywords": [
     "magic",
