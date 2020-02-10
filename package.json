@@ -14,7 +14,7 @@
     "start": "npm run dev",
     "test": "t",
     "format": "f -w",
-    "dev": "src/bin/bin.js serve --dir example"
+    "dev": "src/bin/bin.mjs serve --dir example"
   },
   "bin": {
     "magic-server": "src/bin/bin.js"
