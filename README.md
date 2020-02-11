@@ -1,23 +1,23 @@
-## @magic/server
+## @grundstein/server
 
 serves a local directory (process.cwd() is the default)
 
 #### installation
 ```bash
-npm i @magic/server
+npm i @grundstein/server
 ```
 
 #### usage
 ```bash
 // show full help
-magic-server --help
+grundstein-server --help
 
 // serve the current directory
-magic-server
+grundstein-server
 
 // serve specific directories
-magic-server --dir local/directory/path /global/directory/path
+grundstein-server --dir local/directory/path /global/directory/path
 
 // serve on specific port
-magic-server --port 2323
+grundstein-server --port 2323
 ```

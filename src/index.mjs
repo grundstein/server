@@ -8,9 +8,9 @@ import deep from '@magic/deep'
 import fs from '@magic/fs'
 import mimes from '@magic/mime-types'
 
-import { getArgs } from '../lib/index.mjs'
+import { getArgs } from './lib/index.mjs'
 import { handler } from './handler.mjs'
-import store from '../store/index.mjs'
+import store from './store/index.mjs'
 
 const numCPUs = os.cpus().length
 

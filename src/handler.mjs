@@ -1,7 +1,7 @@
 import mimes from '@magic/mime-types'
 import log from '@magic/log'
 
-import { getFileEncoding } from '../lib/index.mjs'
+import { getFileEncoding } from './lib/index.mjs'
 
 export const handler = store => (req, res) => {
   const startTime = log.hrtime()
