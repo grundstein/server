@@ -1,6 +1,12 @@
 ## @grundstein/server
 
-serves a local directory (process.cwd() is the default)
+serves a local directory (process.cwd() + 'public' is the default)
+
+it is recommended to install [@grundstein/cli](https://github.com/grundstein/cli/) instead,
+which includes both this package,
+as well as [@grundstein/builder](https://github.com/grundstein/builder)
+in one cli.
+
 
 #### installation
 ```bash
@@ -12,7 +18,7 @@ npm i @grundstein/server
 // show full help
 grundstein-server --help
 
-// serve the current directory
+// serve the ./public directory
 grundstein-server
 
 // serve specific directories
