@@ -8,7 +8,6 @@ import deep from '@magic/deep'
 import fs from '@magic/fs'
 import mimes from '@magic/mime-types'
 
-import { getArgs } from './lib/index.mjs'
 import { handler } from './handler.mjs'
 import store from './store/index.mjs'
 
@@ -17,10 +16,11 @@ const numCPUs = os.cpus().length
 export const runCluster = async config => {
   const startTime = log.hrtime()
 
-  const args = getArgs(config)
-  const { port, dirs } = args
+  const { args } = config
 
-  await store.init(dirs)
+  const { port, staticDir } = args
+
+  await store.init(staticDir)
 
   log(`Mainthread started. pid: ${process.pid}`)
 
