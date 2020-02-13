@@ -8,16 +8,17 @@ const args = {
   options: [
     ['--help', '-help', 'help', '--h', '-h'],
     // ['--watch', '-w'],
-    ['--dir', '-d'],
+    ['--static-dir', '--static', '-s'],
+    ['--api-dir', '--api', '-a'],
     ['--port', '-p'],
     ['--cpus', '-c'],
   ],
   default: {
     '--port': 8080,
-    '--dir': ['public'],
+    '--static-dir': 'public',
     '--cpus': 1,
   },
-  single: ['--port', '--cpus'],
+  single: ['--port', '--cpus', '--static-dir', '--api-dir'],
   help: {
     name: 'magic static server',
     header: 'serves static pages',
@@ -25,20 +26,24 @@ const args = {
       start: 'starts server.',
     },
     options: {
-      '--dir': 'directories to serve from',
+      '--static-dir': 'directory to serve static files from',
+      '--api-dir': 'directory the api lives in',
       '--port': 'port, default 8080',
       '--cpus': 'number of processes to start',
       // '--watch': 'watch for changes',
     },
     example: `
-serve files in current dir:
-magic-server serve
+# serve files in current dir:
+grundstein-server serve
 
-serve files relative to process.cwd():
-magic-server serve --dir dir_to_serve dir2_to_serve
+# serve files relative to process.cwd():
+grundstein-server serve --static-dir dir_to_serve dir2_to_serve
 
-serve files using an absolute path:
-magic-server serve --dir /dir/to/serve
+# serve files using an absolute path:
+grundstein-server serve --static-dir /dir/to/serve
+
+# serve files and api
+grundstein-server serve --static-dir /dir/to/public/ --api-dir /dir/to/api/
 `,
   },
 }
