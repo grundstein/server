@@ -14,10 +14,10 @@
     "start": "npm run dev",
     "test": "t",
     "format": "f -w",
-    "dev": "src/bin.mjs serve --dir example"
+    "dev": "src/bin.mjs serve --static-dir example/public --api-dir example/api"
   },
   "bin": {
-    "grundstein-server": "src/bin/bin.js"
+    "grundstein-server": "src/bin.mjs"
   },
   "files": [
     "src"
