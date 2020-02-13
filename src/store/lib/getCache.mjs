@@ -5,23 +5,10 @@ import mimes from '@magic/mime-types'
 
 import { getFileContent } from './getFileContent.mjs'
 
-export const getCache = async dirs => {
-  const files = {}
+export const getCache = async dir => {
+  const contents = await fs.getFiles(dir)
 
-  await Promise.all(
-    dirs.map(async dir => {
-      const contents = await fs.getFiles(dir)
+  const fileArray = await Promise.all(contents.map(getFileContent(dir)))
 
-      await Promise.all(
-        contents.map(async name => {
-          const file = await getFileContent({ name, dir })
-
-          files[file.url] = file
-          return file
-        }),
-      )
-    }),
-  )
-
-  return files
+  return Object.fromEntries(fileArray)
 }

@@ -4,9 +4,9 @@ import { getCache } from './lib/index.mjs'
 
 export const store = {
   cache: {},
-  init: async (dirs = [process.cwd()]) => {
+  init: async (dir = process.cwd()) => {
     const startTime = log.hrtime()
-    store.cache = await getCache(dirs)
+    store.cache = await getCache(dir)
     log.timeTaken(startTime, 'db cache init took:')
   },
   set: (key, val) => {

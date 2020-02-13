@@ -4,7 +4,7 @@ import mimes from '@magic/mime-types'
 
 import { getCompressed } from './getCompressed.mjs'
 
-export const getFileContent = async ({ name, dir }) => {
+export const getFileContent = dir => async name => {
   const url = name.replace(dir, '')
   const extension = path.extname(name).substr(1)
 
@@ -19,5 +19,5 @@ export const getFileContent = async ({ name, dir }) => {
     url,
   }
 
-  return file
+  return [url, file]
 }
