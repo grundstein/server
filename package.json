@@ -17,7 +17,8 @@
     "dev": "src/bin.mjs serve --static-dir example/public --api-dir example/api"
   },
   "bin": {
-    "grundstein-server": "src/bin.mjs"
+    "grundstein-server": "src/bin.mjs",
+    "gs-server": "src/bin.mjs"
   },
   "files": [
     "src"
