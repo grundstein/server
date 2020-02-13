@@ -1,17 +1,13 @@
 import http from 'http'
-import cluster from 'cluster'
-import os from 'os'
-import path from 'path'
+// import cluster from 'cluster'
+// import os from 'os'
 
 import log from '@magic/log'
-import deep from '@magic/deep'
-import fs from '@magic/fs'
-import mimes from '@magic/mime-types'
 
 import { handler as defaultHandler } from './handler.mjs'
 import { store as defaultStore } from './store/index.mjs'
 
-const numCPUs = os.cpus().length
+// const numCPUs = os.cpus().length
 
 export const runCluster = async (config = {}) => {
   const startTime = log.hrtime()
@@ -33,6 +29,9 @@ export const runCluster = async (config = {}) => {
   server.listen(port, () => {
     const timeToListen = process.hrtime(startTime)
     log(`server listening to localhost:${port}`)
-    log.timeTaken(startTime, 'startup needed')
+
+    log.timeTaken(startTime, 'startup needed:')
   })
 }
+
+export default runCluster
