@@ -8,15 +8,15 @@ import deep from '@magic/deep'
 import fs from '@magic/fs'
 import mimes from '@magic/mime-types'
 
-import { handler } from './handler.mjs'
-import store from './store/index.mjs'
+import { handler as defaultHandler } from './handler.mjs'
+import { store as defaultStore } from './store/index.mjs'
 
 const numCPUs = os.cpus().length
 
-export const runCluster = async config => {
+export const runCluster = async (config = {}) => {
   const startTime = log.hrtime()
 
-  const { args } = config
+  const { args, handler = defaultHandler, store = defaultStore } = config
 
   const { port, staticDir } = args
 
