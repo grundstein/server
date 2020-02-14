@@ -13,32 +13,31 @@ export const handler = store => (req, res) => {
 
   const file = store.get(url)
 
-  if (!file) {
-    res.writeHead(404)
-    res.end('404 - not found.')
+  if (file) {
+    const encoding = getFileEncoding(file, req.headers['accept-encoding'])
+    const fileContent = file[encoding]
 
-    log.timeTaken(startTime, 'FILE NOT FOUND. Request took', `${url}, code: 404`)
+    if (!fileContent) {
+      res.writeHead(404)
+      res.end('404 - not found.')
+
+      log.info('NO CONTENT', { url, code: 404 })
+      return
+    }
+
+    res.writeHead(200, {
+      'Content-Type': file.mime,
+      'Content-Length': Buffer.byteLength(fileContent),
+      'Content-Encoding': encoding,
+    })
+
+    res.end(fileContent)
+    log.timeTaken(startTime, 'static file response took:', `url: ${url}, code: 200`)
     return
   }
 
-  const encoding = getFileEncoding(file, req.headers['accept-encoding'])
-  const fileContent = file[encoding]
+  res.writeHead(404)
+  res.end('404 - not found.')
 
-  if (!fileContent) {
-    res.writeHead(404)
-    res.end('404 - not found.')
-
-    log.info('NO CONTENT', { url, code: 404 })
-    return
-  }
-
-  res.writeHead(200, {
-    'Content-Type': file.mime,
-    'Content-Length': Buffer.byteLength(fileContent),
-    'Content-Encoding': encoding,
-  })
-
-  res.end(fileContent)
-
-  log.timeTaken(startTime, 'Response took:', `url: ${url}, code: 200`)
+  log.timeTaken(startTime, 'FILE NOT FOUND. Request took', `${url}, code: 404`)
 }
