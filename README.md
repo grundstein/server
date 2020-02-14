@@ -1,5 +1,7 @@
 ## @grundstein/server
 
+### WIP. NOT IN PRODUCTION YET!
+
 serves a local directory (process.cwd() + 'public' is the default)
 
 it is recommended to install [@grundstein/cli](https://github.com/grundstein/cli/) instead,
