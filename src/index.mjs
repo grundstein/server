@@ -4,19 +4,20 @@ import http from 'http'
 
 import log from '@magic/log'
 
+import defaultStore from '@grundstein/file-store'
+
 import { handler as defaultHandler } from './handler.mjs'
-import { store as defaultStore } from './store/index.mjs'
 
 // const numCPUs = os.cpus().length
 
 export const runCluster = async (config = {}) => {
   const startTime = log.hrtime()
 
-  const { args, handler = defaultHandler, store = defaultStore } = config
+  const { args = {}, handler = defaultHandler, fileStore = defaultStore } = config
 
-  const { port, staticDir } = args
+  const { port = 8080, staticDir } = args
 
-  await store.init(staticDir)
+  const store = await fileStore(staticDir)
 
   log(`Mainthread started. pid: ${process.pid}`)
 
