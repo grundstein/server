@@ -5,7 +5,7 @@
   "homepage": "https://grundstein.github.io/server",
   "license": "AGPL-3.0",
   "description": "NOT YET BENCHMARKED OR IN PRODUCTION! @grundstein/server. serves static webapps and their apis. caches what it can.",
-  "main": "src/bin.mjs",
+  "main": "src/index.mjs",
   "engines": {
     "node": ">=13.5.0"
   },
@@ -31,6 +31,7 @@
     "url": "https://github.com/grundstein/server/issues"
   },
   "dependencies": {
+    "@grundstein/file-store": "github:grundstein/file-store",
     "@magic/cli": "0.0.23",
     "@magic/deep": "0.1.2",
     "@magic/fs": "0.0.4",
