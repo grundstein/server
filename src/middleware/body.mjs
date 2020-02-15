@@ -1,7 +1,6 @@
 export const body = req =>
   new Promise((resolve, reject) => {
     try {
-      console.log(req.headers)
       const isJson = req.headers['content-type'] === 'application/json'
 
       let body = ''
