@@ -1,16 +1,11 @@
 import http from 'http'
-// import cluster from 'cluster'
-// import os from 'os'
 
 import log from '@magic/log'
 
 import defaultStore from '@grundstein/file-store'
 
-import { handler as defaultHandler } from './handler.mjs'
-
 import { initStore, initApi } from './init/index.mjs'
-
-// const numCPUs = os.cpus().length
+import { handler as defaultHandler } from './handler.mjs'
 
 export const runCluster = async (config = {}) => {
   const startTime = log.hrtime()
