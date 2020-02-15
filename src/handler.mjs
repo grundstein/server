@@ -4,7 +4,7 @@ import mimes from '@magic/mime-types'
 import log from '@magic/log'
 import is from '@magic/types'
 
-import { getFileEncoding, getRandomId, sendFile } from './lib/index.mjs'
+import { formatLog, getFileEncoding, getRandomId, respond, sendFile } from './lib/index.mjs'
 
 export const handler = ({ store, api }) => async (req, res) => {
   // remove client ip address as soon as possible
@@ -26,7 +26,7 @@ export const handler = ({ store, api }) => async (req, res) => {
 
     if (file) {
       sendFile(req, res, file)
-      log.timeTaken(startTime, 'static file response took:', `url: ${url}, code: 200`)
+      formatLog(req, res, startTime, 'static')
       return
     }
   }
@@ -39,8 +39,12 @@ export const handler = ({ store, api }) => async (req, res) => {
     const versionKeys = Object.keys(api)
 
     if (!versionKeys.includes(requestVersion)) {
-      res.writeHead(404, { 'Content-Type': 'text/plain' })
-      res.end(`Api request urls must start with a version. supported: ${versionKeys.join(' ')}`)
+      const code = 404
+      const body = `Api request urls must start with a version. supported: ${versionKeys.join(' ')}`
+
+      respond(res, { body, code })
+
+      formatLog(req, res, startTime, 'api')
       return
     }
 
@@ -50,8 +54,12 @@ export const handler = ({ store, api }) => async (req, res) => {
     if (!is.fn(lambda)) {
       const apiKeys = Object.keys(version)
 
-      res.writeHead(404, { 'Content-Type': 'text/plain' })
-      res.end(`function not found. Got: ${fn}. Supported: ${apiKeys.join(' ')}`)
+      const code = 404
+      const body = `function not found. Got: ${fn}. Supported: ${apiKeys.join(' ')}`
+
+      respond(res, { body, code })
+
+      formatLog(req, res, startTime, 'api')
       return
     }
 
@@ -64,17 +72,13 @@ export const handler = ({ store, api }) => async (req, res) => {
       }
     }
 
-    const { code = 200, headers = {}, body } = await lambda(req, res)
+    respond(res, await lambda(req, res))
 
-    res.writeHead(code, headers)
-    res.end(body)
-
-    log.timeTaken(startTime, 'api request took')
+    formatLog(req, res, startTime, 'api')
     return
   }
 
-  res.writeHead(404)
-  res.end('404 - not found.')
+  respond(res, { body: '404 - not found.', code: 404 })
 
-  log.timeTaken(startTime, 'FILE NOT FOUND. Request took', `${url}, code: 404`)
+  formatLog(req, res, startTime, 404)
 }
