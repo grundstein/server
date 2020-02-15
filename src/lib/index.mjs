@@ -1,2 +1,2 @@
 export { getFileEncoding } from './getFileEncoding.mjs'
-export { getIp } from './getIp.mjs'
+export { getApi } from './getApi.mjs'
