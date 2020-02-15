@@ -8,6 +8,8 @@ import defaultStore from '@grundstein/file-store'
 
 import { handler as defaultHandler } from './handler.mjs'
 
+import { initStore, initApi } from './init/index.mjs'
+
 // const numCPUs = os.cpus().length
 
 export const runCluster = async (config = {}) => {
@@ -15,13 +17,13 @@ export const runCluster = async (config = {}) => {
 
   const { args = {}, handler = defaultHandler, fileStore = defaultStore } = config
 
-  const { port = 8080, staticDir } = args
+  const { port = 8080, staticDir, apiDir } = args
 
-  const store = await fileStore(staticDir)
+  const store = await initStore(staticDir, fileStore)
 
-  log(`Mainthread started. pid: ${process.pid}`)
+  const api = await initApi(apiDir)
 
-  const server = http.createServer(handler(store))
+  const server = http.createServer(handler({ store, api }))
 
   server.on('clientError', (err, socket) => {
     socket.end('HTTP/1.1 400 Bad Request\r\n\r\n')
@@ -29,6 +31,8 @@ export const runCluster = async (config = {}) => {
 
   server.listen(port, () => {
     const timeToListen = process.hrtime(startTime)
+
+    log.success('Mainthread started', `pid: ${process.pid}`)
     log(`server listening to localhost:${port}`)
 
     log.timeTaken(startTime, 'startup needed:')
