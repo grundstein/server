@@ -22,6 +22,9 @@ export const handler = ({ store, api }) => async (req, res) => {
   }
 
   if (store) {
+    if (url.startsWith('/')) {
+      url = url.substr(1)
+    }
     const file = store.get(url)
 
     if (file) {
