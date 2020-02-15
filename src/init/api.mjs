@@ -4,6 +4,10 @@ import fs from '@magic/fs'
 import log from '@magic/log'
 
 export const initApi = async dir => {
+  if (!dir) {
+    return {}
+  }
+
   const startTime = log.hrtime()
 
   const files = await fs.getFiles(dir)
