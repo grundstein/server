@@ -19,7 +19,7 @@ export const formatLog = (req, res, time, type = 'request') => {
   const duration = `${span}${unit}`
 
   const date = new Date()
-  let day = date.getDate();
+  let day = date.getDate()
   let month = date.getMonth() + 1
   const year = date.getFullYear()
   let hour = date.getHours()
@@ -60,7 +60,7 @@ export const formatLog = (req, res, time, type = 'request') => {
     `"time":"${timeString}",`,
     `"duration":"${duration}",`,
     `"type":"${type}",`,
-    `"path":"${url}"`,// last item, no comma in string.
+    `"path":"${url}"`, // last item, no comma in string.
     '}',
   ]
 
