@@ -3,11 +3,13 @@ export const body = req =>
     try {
       const isJson = req.headers['content-type'] === 'application/json'
 
-      let body = ''
+      const bodyParts = []
 
-      req.on('data', chunk => (body += chunk))
+      req.on('data', chunk => { bodyParts.push(chunk) })
 
       req.on('end', () => {
+        let body = Buffer.concat(bodyParts).toString()
+
         if (isJson) {
           try {
             body = JSON.parse(body)
