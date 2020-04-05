@@ -5,7 +5,9 @@ export const body = req =>
 
       const bodyParts = []
 
-      req.on('data', chunk => { bodyParts.push(chunk) })
+      req.on('data', chunk => {
+        bodyParts.push(chunk)
+      })
 
       req.on('end', () => {
         let body = Buffer.concat(bodyParts).toString()
