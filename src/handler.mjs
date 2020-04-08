@@ -1,12 +1,13 @@
 import URL from 'url'
 
-import mimes from '@magic/mime-types'
 import log from '@magic/log'
 import is from '@magic/types'
 
-import { formatLog, getFileEncoding, getRandomId, respond, sendFile } from './lib/index.mjs'
+import { lib, middleware } from '@grundstein/commons'
 
-export const handler = ({ store, api }) => async (req, res) => {
+const { formatLog, getRandomId, respond } = lib
+
+export const handler = api => async (req, res) => {
   // assign random id to make this call traceable in logs.
   req.id = await getRandomId()
 
@@ -14,25 +15,10 @@ export const handler = ({ store, api }) => async (req, res) => {
 
   const startTime = log.hrtime()
 
-  let { url } = req
-  if (url.endsWith('/')) {
-    url = `${url}index.html`
-  }
-
-  if (store) {
-    const file = store.get(url)
-
-    if (file) {
-      sendFile(req, res, file)
-      formatLog(req, res, startTime, 'static')
-      return
-    }
-  }
-
   const parsedUrl = URL.parse(req.url)
 
-  if (api && parsedUrl.pathname.startsWith('/api')) {
-    const [_, requestVersion, fn] = parsedUrl.pathname.split('/').filter(a => a)
+  if (api) {
+    const [requestVersion, fn] = parsedUrl.pathname.split('/').filter(a => a)
 
     const versionKeys = Object.keys(api)
 
@@ -82,3 +68,5 @@ export const handler = ({ store, api }) => async (req, res) => {
 
   formatLog(req, res, startTime, 404)
 }
+
+export default handler

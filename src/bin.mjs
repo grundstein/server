@@ -11,36 +11,27 @@ const args = {
     ['--dir', '--public', '--public-dir', '-p'],
     ['--host', '-h'],
     ['--port', '-p'],
-    ['--no-Files'],
-    ['--no-Api'],
   ],
   default: {
-    '--dir': 'public',
+    '--dir': 'api',
     '--host': '127.0.0.1',
     '--port': 8080,
-    '--no-Api': false,
-    '--no-Files': false,
   },
-  single: ['--dir', '--host', '--port', '--no-Api', '--no-Files'],
+  single: ['--dir', '--host', '--port'],
   help: {
-    name: 'magic static server',
-    header: 'serves static pages',
+    name: 'magic api server',
+    header: 'serves magic apis',
     options: {
-      '--dir': 'root for both api and static directories',
-      '--host': 'internal hostname to listen to, default grundstein',
+      '--dir': 'api root directory',
+      '--host': 'internal hostname to listen to, default 127.0.0.1',
       '--port': 'port, default 8080',
-      '--no-Files': 'do not serve static files',
-      '--no-Api': 'do not serve api',
     },
     example: `
-# serve files in ./public:
-gs-server
+# serve files in ./api:
+gas
 
-# serve files using an absolute path:
-gs-server serve --dir /public
-
-# serve files and api
-gs-server serve --dir /dir/to/public/ --host host.name --port 80
+# serve files using an absolute path, custom host and port.
+gas --dir /api --host grundstein --port 8080
 `,
   },
 }

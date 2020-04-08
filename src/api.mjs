@@ -13,17 +13,15 @@ export const initApi = async dir => {
 
   const cwd = process.cwd()
 
-  const apiDir = path.join(dir, 'api')
+  log.info(`gs-server/api: serving static files from ${dir}`)
 
-  log.info(`gs-server/api: serving static files from ${apiDir}`)
-
-  const files = await fs.getFiles(apiDir)
+  const files = await fs.getFiles(dir)
 
   const api = {}
 
   await Promise.all(
     files.map(async file => {
-      const relativePath = file.replace(apiDir, '')
+      const relativePath = file.replace(dir, '')
       const [_, version, ...pathParts] = relativePath.split(path.sep)
 
       // initialize this api version if it does not exist yet
@@ -46,3 +44,5 @@ export const initApi = async dir => {
 
   return api
 }
+
+export default initApi
