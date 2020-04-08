@@ -6,7 +6,6 @@ import defaultStore from '@grundstein/file-store'
 
 import { initStore, initApi } from './init/index.mjs'
 import { handler as defaultHandler } from './handler.mjs'
-import { watcher as defaultWatcher } from './watcher.mjs'
 
 export const runCluster = async (config = {}) => {
   const startTime = log.hrtime()
@@ -39,10 +38,6 @@ export const runCluster = async (config = {}) => {
 
       log.timeTaken(startTime, 'startup needed:')
     })
-
-    if (watch) {
-      watcher(config)
-    }
   } catch (e) {
     log.error(e)
     process.exit(1)
