@@ -10,7 +10,7 @@ export const sendFile = (req, res, file) => {
     res.writeHead(404)
     res.end('404 - not found.')
 
-    log.error('NO CONTENT', { url, code: 404 })
+    log.error('NO CONTENT', { url: req.url, code: 404 })
     return
   }
 
