@@ -1,5 +1,11 @@
+import is from '@magic/types'
+
 export const getFileEncoding = (file, acceptEncoding) => {
   const encoding = 'buffer'
+
+  if (is.empty(acceptEncoding) || !is.array(acceptEncoding)) {
+    return 'deflate'
+  }
 
   if (acceptEncoding.includes('br') && file.br) {
     encoding = 'br'
