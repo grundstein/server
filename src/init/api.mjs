@@ -4,26 +4,33 @@ import fs from '@magic/fs'
 import log from '@magic/log'
 
 export const initApi = async dir => {
+  // some servers might have no api.
   if (!dir) {
     return {}
   }
 
   const startTime = log.hrtime()
 
-  const files = await fs.getFiles(dir)
+  const cwd = process.cwd()
+
+  const apiDir = path.join(dir, 'api')
+
+  log.info(`gs-server/api: serving static files from ${apiDir}`)
+
+  const files = await fs.getFiles(apiDir)
 
   const api = {}
 
   await Promise.all(
     files.map(async file => {
-      const relativePath = file.replace(dir, '')
+      const relativePath = file.replace(apiDir, '')
       const [_, version, ...pathParts] = relativePath.split(path.sep)
 
       // initialize this api version if it does not exist yet
       api[version] = api[version] || {}
 
       // get absolute path for import
-      const absPath = path.join(process.cwd(), file)
+      const absPath = path.join(cwd, file)
 
       const { default: lambda } = await import(absPath)
 
