@@ -16,12 +16,17 @@ export const run = async (config = {}) => {
     fileStore = defaultStore,
   } = config
 
-  const { port = 8080, host = '127.0.0.1', dir = 'public' } = args
+  const { port = 8080, host = '127.0.0.1', dir = 'public', noFiles = false, noApi = false } = args
 
   try {
-    const store = await initStore(dir, fileStore)
+    const store = noFiles === false ? await initStore(dir, fileStore) : null
 
-    const api = await initApi(dir)
+    const api = noApi === false ? await initApi(dir) : null
+
+    if (!store && !api) {
+      log.error('No api and no static files, this server has nothing to do.', 'E_NO_TASKS')
+      process.exit(1)
+    }
 
     const server = http.createServer(handler({ store, api }))
 
