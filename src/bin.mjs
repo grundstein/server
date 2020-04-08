@@ -11,23 +11,26 @@ const args = {
     ['--dir', '--public', '--public-dir', '-p'],
     ['--host', '-h'],
     ['--port', '-p'],
+    ['--no-Files'],
+    ['--no-Api'],
   ],
   default: {
     '--dir': 'public',
     '--host': '127.0.0.1',
     '--port': 8080,
+    '--no-Api': false,
+    '--no-Files': false,
   },
-  single: ['--dir', '--host', '--port'],
+  single: ['--dir', '--host', '--port', '--no-Api', '--no-Files'],
   help: {
     name: 'magic static server',
     header: 'serves static pages',
-    commands: {
-      start: 'starts server.',
-    },
     options: {
       '--dir': 'root for both api and static directories',
       '--host': 'internal hostname to listen to, default grundstein',
       '--port': 'port, default 8080',
+      '--no-Files': 'do not serve static files',
+      '--no-Api': 'do not serve api',
     },
     example: `
 # serve files in ./public:
