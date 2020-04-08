@@ -10,15 +10,16 @@ const args = {
     // ['--watch', '-w'],
     ['--static-dir', '--static', '-s'],
     ['--api-dir', '--api', '-a'],
+    ['--host', '-h'],
     ['--port', '-p'],
-    ['--cpus', '-c'],
   ],
   default: {
     '--port': 8080,
     '--static-dir': 'public',
     '--cpus': 1,
+    '--host': 'grundstein',
   },
-  single: ['--port', '--cpus', '--static-dir', '--api-dir'],
+  single: ['--port', '--host', '--static-dir', '--api-dir'],
   help: {
     name: 'magic static server',
     header: 'serves static pages',
@@ -28,9 +29,8 @@ const args = {
     options: {
       '--static-dir': 'directory to serve static files from',
       '--api-dir': 'directory the api lives in',
+      '--host': 'internal hostname to listen to, default grundstein',
       '--port': 'port, default 8080',
-      '--cpus': 'number of processes to start',
-      // '--watch': 'watch for changes',
     },
     example: `
 # serve files in current dir:
