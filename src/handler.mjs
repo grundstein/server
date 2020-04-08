@@ -7,8 +7,6 @@ import is from '@magic/types'
 import { formatLog, getFileEncoding, getRandomId, respond, sendFile } from './lib/index.mjs'
 
 export const handler = ({ store, api }) => async (req, res) => {
-  // remove client ip address as soon as possible
-  // to make sure noone can log it.
   // assign random id to make this call traceable in logs.
   req.id = await getRandomId()
 
@@ -64,6 +62,8 @@ export const handler = ({ store, api }) => async (req, res) => {
     }
 
     if (req.method === 'POST') {
+      // this middleware expects small chunks of data.
+      // it loads the full request body into ram before returning.
       req.body = await middleware.body(req)
 
       if (is.error(req.body)) {
