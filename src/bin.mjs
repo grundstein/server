@@ -6,19 +6,18 @@ import run from './index.mjs'
 
 const args = {
   options: [
+    ['--dir', '-d'],
     ['--help', '-help', 'help', '--h', '-h'],
-    // ['--watch', '-w'],
-    ['--dir', '--public', '--public-dir', '-p'],
   ],
   default: {
     '--dir': 'api',
   },
-  single: ['--dir', '--host', '--port'],
+  single: ['--dir'],
   help: {
     name: 'magic api server',
     header: 'serves magic apis',
     options: {
-      '--dir': 'api root directory',
+      '--dir': 'api root directory.',
     },
     example: `
 # serve files in ./api:
